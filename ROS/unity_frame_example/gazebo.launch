@@ -1,0 +1,18 @@
+<launch>
+
+  <env name="GAZEBO_MODEL_PATH" value="$(find gazebo_data)/data/models:$(optenv GAZEBO_MODEL_PATH)" /> 
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="/home/hoge/gazebo_data/data/the.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="false"/>
+    <arg name="gui" value="false"/>
+    <arg name="headless" value="false"/> <!-- Inert - see gazebo_ros_pkgs issue #491 -->
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+    <arg name="verbose" value="true"/>
+  </include>
+    <include file="$(find gazebo2rviz)/launch/gazebo2rviz.launch" /> 
+<node pkg="tf2_ros" type="static_transform_publisher" name="robo_scan_tf" args="0 0 0.1 0 0 0 1 roomba_1/base_link roomba_1/scan" />  
+<node pkg="movetest" type="fixSensorTime.py" name="fixSensorTime"/> 
+</launch>
+

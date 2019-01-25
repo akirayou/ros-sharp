@@ -1,0 +1,52 @@
+controller_frequency: 20.0
+planner_patience: 5.0
+controller_patience: 3.0
+planner_frequency: 0
+shutdown_costmaps: true 
+oscillation_timeout: 10.0
+oscillation_distance: 0.2
+base_global_planner: "navfn/NavfnROS"
+base_local_planner: "base_local_planner/TrajectoryPlannerROS"
+#base_local_planner: "dwa_local_planner/DWAPlannerROS"
+
+
+
+global_planner:
+  orientation_mode: 1
+  default_tolerance: 0.15 #tolerance to Goal 
+
+TrajectoryPlannerROS:
+  sim_time: 0.8
+  max_vel_x: 1.0
+  min_vel_x: 0.0
+  max_vel_theta: 3.0
+  min_in_place_vel_theta: 0.0
+  acc_lim_theta: 2
+  acc_lim_x: 1
+  holonomic_robot: false
+  orientation_mode: 1
+  meter_scoring: true
+
+  pdist_scale: 5.0  #distance form path 0.6
+  gdist_scale: 0.1  #distance from goal 0.8
+  occdist_scale: 0.01 #obstacle cost  0.01
+  oscillation_reset_dist: 0.3
+  publish_cost_grid_pc: true
+
+DWAPlannerROS:
+  sim_time: 0.5
+  max_vel_x: 0.3
+  min_vel_x: 0.0
+  max_vel_theta: 1.0
+  min_in_place_vel_theta: 0.0
+
+  acc_lim_theta: 3.2
+  acc_lim_x: 2.5
+  acc_lim_y: 2.5
+  holonomic_robot: false
+  orientation_mode: 1
+  meter_scoring: true
+
+
+  oscillation_reset_dist: 0.3
+  publish_cost_grid: true
