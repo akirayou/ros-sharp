@@ -35,7 +35,7 @@ namespace RosSharp.SensorVisualization
                 DestroyImmediate(LaserScan[i].GetComponent<Collider>());                    
                 LaserScan[i].name = "LaserScanSpheres";
                 LaserScan[i].transform.parent = transform;
-                LaserScan[i].GetComponent<Renderer>().material = new Material(Shader.Find("Particles/Additive"));
+                LaserScan[i].GetComponent<Renderer>().material = new Material(Shader.Find("Legacy Shaders/Particles/Additive"));
             }
             IsCreated = true;
         }
@@ -47,7 +47,7 @@ namespace RosSharp.SensorVisualization
 
             for (int i = 0; i < directions.Length; i++)
             {
-                LaserScan[i].SetActive(ranges[i] != 0);
+                LaserScan[i].SetActive(ranges[i] > 0 );
                 LaserScan[i].GetComponent<Renderer>().material.SetColor("_TintColor", GetColor(ranges[i]));
                 LaserScan[i].transform.localScale = objectWidth * Vector3.one;
                 LaserScan[i].transform.localPosition = ranges[i] * directions[i];
@@ -60,6 +60,5 @@ namespace RosSharp.SensorVisualization
                 Destroy(LaserScan[i]);
             IsCreated = false;
         }
-
     }
 }

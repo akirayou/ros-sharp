@@ -114,9 +114,7 @@ namespace RosSharp.Urdf.Editor
 
                 if (inflateColliders)
                 {
-                    meshCollider.inflateMesh = true;
                     meshCollider.convex = true;
-                    meshCollider.skinWidth = 0.001f;
                 }
 
                 Object.DestroyImmediate(child.GetComponent<MeshRenderer>());

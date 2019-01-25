@@ -27,11 +27,12 @@ public class LaserScanVisualizerMesh : LaserScanVisualizer
     private void Create()
     {
         LaserScan = new GameObject("LaserScanMesh");
-        LaserScan.transform.position = origin;
         LaserScan.transform.parent = gameObject.transform;
+        LaserScan.transform.localPosition=Vector3.zero;
+        LaserScan.transform.localRotation = Quaternion.identity;
         LaserScan.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = LaserScan.AddComponent<MeshRenderer>();
-        meshRenderer.material = new Material(Shader.Find("Particles/Additive"));
+        meshRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Additive"));
 
         mesh = LaserScan.GetComponent<MeshFilter>().mesh;
         meshVerticies = new Vector3[directions.Length + 1];
