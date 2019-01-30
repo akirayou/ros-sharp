@@ -37,6 +37,10 @@ namespace RosSharp.RosBridgeClient
             new Thread(ConnectAndWait).Start();
         }
 
+		public bool IsConnected()
+        {
+            return isConnected.WaitOne(0);
+        }
         private void ConnectAndWait()
         {
             RosSocket = ConnectToRos(Protocol, RosBridgeServerUrl, OnConnected, OnClosed);
