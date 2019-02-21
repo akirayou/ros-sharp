@@ -19,9 +19,9 @@ public class LaserScanVisualizerLines : LaserScanVisualizer
 {
     [Range(0.001f, 0.01f)]
     public float objectWidth;
-    public Material material;
+	public Material material;
 
-    private GameObject[] LaserScan;
+	private GameObject[] LaserScan;
     private bool IsCreated = false;
 
     private void Create(int numOfLines)
@@ -31,10 +31,12 @@ public class LaserScanVisualizerLines : LaserScanVisualizer
         for (int i = 0; i < numOfLines; i++)
         {
             LaserScan[i] = new GameObject("LaserScanLines");
-            LaserScan[i].transform.position = origin;
             LaserScan[i].transform.parent = gameObject.transform;
+            LaserScan[i].transform.localPosition = Vector3.zero;
+            LaserScan[i].transform.localRotation = Quaternion.identity;
             LaserScan[i].AddComponent<LineRenderer>();
             LaserScan[i].GetComponent<LineRenderer>().material = material;
+            LaserScan[i].GetComponent<LineRenderer>().useWorldSpace = false;
         }
         IsCreated = true;
     }
@@ -51,15 +53,16 @@ public class LaserScanVisualizerLines : LaserScanVisualizer
             lr.endColor = GetColor(ranges[i]);
             lr.startWidth = objectWidth;
             lr.endWidth = objectWidth;
-            lr.SetPosition(0, origin);
-            lr.SetPosition(1, origin + ranges[i] * directions[i]);
+            lr.SetPosition(0, Vector3.zero);
+            lr.SetPosition(1, ranges[i] * directions[i]);
         }
     }
 
     protected override void DestroyObjects()
     {
-        for (int i = 0; i < LaserScan.Length; i++)
-            Destroy(LaserScan[i]);
+        if(! ( LaserScan is null))
+            for (int i = 0; i < LaserScan.Length; i++)
+                Destroy(LaserScan[i]);
         IsCreated = false;
     }
 }

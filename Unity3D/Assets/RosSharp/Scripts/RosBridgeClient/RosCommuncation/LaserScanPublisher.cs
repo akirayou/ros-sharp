@@ -55,7 +55,8 @@ namespace RosSharp.RosBridgeClient
                 range_min       = laserScanReader.range_min,
                 range_max       = laserScanReader.range_max,
                 ranges          = laserScanReader.ranges,      
-                intensities     = laserScanReader.intensities
+                intensities     = laserScanReader.intensities,
+                scan_time=laserScanReader.scan_time
             };
         }
 

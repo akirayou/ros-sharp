@@ -22,6 +22,8 @@ namespace RosSharp.RosBridgeClient
         private bool isReceived = false;
         private float range_max;
         private float range_min;
+        public float AngleOffset = 0;  //for LIDAR setting angle
+        public float AngleRate = 1.0f; //for reverse rotation 
         private float[] ranges;
         private Vector3[] directions;
         private LaserScanVisualizer[] laserScanVisualizers;
@@ -47,9 +49,16 @@ namespace RosSharp.RosBridgeClient
             for (int i = 0; i < laserScan.ranges.Length; i++)
             {
                 ranges[i] = laserScan.ranges[i];
-                directions[i] = new Vector3(Mathf.Cos(laserScan.angle_min + laserScan.angle_increment * i), 0, Mathf.Sin(laserScan.angle_min + laserScan.angle_increment * i));
+                if (!IsFinite(ranges[i])) ranges[i] = 0;
+                float angle = laserScan.angle_min + laserScan.angle_increment * i;
+                angle = angle * AngleRate + AngleOffset;
+                directions[i] = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
             }
             isReceived = true;
+        }
+        private bool IsFinite(float f)
+        {
+            return !(float.IsNaN(f) || float.IsInfinity(f));
         }
 
     }

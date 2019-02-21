@@ -4,6 +4,13 @@
 
 Find some examples what you can do with ROS# [here](https://github.com/siemens/ros-sharp/wiki/Info_Showcases).
 
+# Additional Change in this repo. #
+* use BSON( Original ros-sharp use JSON/rosbridge). So you have to run rosbridge with "bson_only_mode". In addition,BSON can handle NaN,Inf float. You have to add patch on rosbridge. see (https://github.com/akirayou/rosbridge_suite/commit/a1b0661a663e539aafe39daf71156ebeb4f2ae01)
+* use NTP as default ROS header timestamp. You have to attach GameObject which's name is "Ros",and attach NtpTime.cs on it. (See StandardHeaderExtensions.cs for more detail)
+* Now Supports PointCloud2 (only for float type data). If you want to use another type,modify "PointCloud2VisualizerGeneral"
+* Laser scan can be attached to moving object (Using localPositon). May be,it is bugfix?.
+
+
 ## Recent Changes ##
 
 [This](https://github.com/siemens/ros-sharp/commit/acdd1ea7b8de47a23fbf376fa590590cf945b495) commit comes with major changes in how ROS# deals with URDF import/export

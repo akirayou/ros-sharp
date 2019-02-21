@@ -21,9 +21,9 @@ namespace RosSharp.SensorVisualization
     {
         [Range(0.01f, 0.1f)]
         public float objectWidth;
-        public Material material;
+		public Material material;
 
-        private GameObject[] LaserScan;
+		private GameObject[] LaserScan;
         private bool IsCreated = false;
 
         private void Create(int numOfSpheres)
@@ -48,7 +48,7 @@ namespace RosSharp.SensorVisualization
 
             for (int i = 0; i < directions.Length; i++)
             {
-                LaserScan[i].SetActive(ranges[i] != 0);
+                LaserScan[i].SetActive(ranges[i] > 0 );
                 LaserScan[i].GetComponent<Renderer>().material.SetColor("_TintColor", GetColor(ranges[i]));
                 LaserScan[i].transform.localScale = objectWidth * Vector3.one;
                 LaserScan[i].transform.localPosition = ranges[i] * directions[i];
@@ -61,6 +61,5 @@ namespace RosSharp.SensorVisualization
                 Destroy(LaserScan[i]);
             IsCreated = false;
         }
-
     }
 }

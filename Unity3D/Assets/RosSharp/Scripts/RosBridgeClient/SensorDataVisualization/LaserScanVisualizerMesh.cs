@@ -23,16 +23,17 @@ public class LaserScanVisualizerMesh : LaserScanVisualizer
     private Color[] meshVertexColors;
     private int[] meshTriangles;
     private bool IsCreated = false;
-    public Material material;
+	public Material material;
 
-    private void Create()
+	private void Create()
     {
         LaserScan = new GameObject("LaserScanMesh");
-        LaserScan.transform.position = origin;
         LaserScan.transform.parent = gameObject.transform;
+        LaserScan.transform.localPosition=Vector3.zero;
+        LaserScan.transform.localRotation = Quaternion.identity;
         LaserScan.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = LaserScan.AddComponent<MeshRenderer>();
-        meshRenderer.material = material;
+		meshRenderer.material = material;
 
         mesh = LaserScan.GetComponent<MeshFilter>().mesh;
         meshVerticies = new Vector3[directions.Length + 1];
